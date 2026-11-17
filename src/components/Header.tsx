@@ -6,6 +6,13 @@ import { signOut, useSession } from 'next-auth/react';
 import { Brand } from '@/components/Brand';
 import { can } from '@/lib/permissions';
 
+async function logout() {
+  await signOut({ redirect: false, redirectTo: '/' });
+  // Tải lại trang để bỏ cache điều hướng của phiên vừa đăng xuất.
+  // eslint-disable-next-line @next/next/no-location-assign-relative-destination
+  window.location.assign('/');
+}
+
 export function Header() {
   const pathname = usePathname();
   const { data, status } = useSession();
@@ -25,7 +32,7 @@ export function Header() {
               <Link href="/loans" aria-current={active('/loans')}>Sách đã mượn</Link>
               {can(user.role, 'loan:review') && <Link href="/admin" aria-current={active('/admin')}>Quản trị</Link>}
               <span className="account-name">Xin chào, {user.name} ({user.role})</span>
-              <button type="button" className="small-button" onClick={() => void signOut({ redirectTo: '/' })}>Đăng xuất</button>
+              <button type="button" className="small-button" onClick={() => void logout()}>Đăng xuất</button>
             </>
           )}
           {status === 'unauthenticated' && <Link className="button small-button" href="/login" aria-current={active('/login')}>Đăng nhập</Link>}

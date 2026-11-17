@@ -17,7 +17,7 @@ export async function login(
     });
     return {};
   } catch (error) {
-    if (error instanceof AuthError) {
+    if (error instanceof AuthError && error.type === 'CredentialsSignin') {
       return { error: 'Email hoặc mật khẩu không đúng' };
     }
     throw error;

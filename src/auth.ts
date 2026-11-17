@@ -3,6 +3,8 @@ import Credentials from 'next-auth/providers/credentials';
 import { USERS } from '@/data/users';
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  // Next.js là server cục bộ của bài thực hành và cung cấp host của request.
+  trustHost: true,
   providers: [
     Credentials({
       credentials: { email: {}, password: {} },

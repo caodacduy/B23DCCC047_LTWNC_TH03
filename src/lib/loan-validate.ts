@@ -35,7 +35,7 @@ const dateInVietnam = new Intl.DateTimeFormat('sv-SE', {
 });
 
 export function today(): string {
-  return dateInVietnam.format();
+  return dateInVietnam.format(new Date());
 }
 
 export function toLoanInput(raw: FormData | Partial<Record<keyof LoanInput, unknown>>): LoanInput {
