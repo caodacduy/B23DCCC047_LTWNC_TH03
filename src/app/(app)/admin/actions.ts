@@ -11,5 +11,6 @@ export async function reviewLoan(id: number, status: 'approved' | 'rejected') {
 
   if (changeLoanStatus(id, status)) {
     revalidatePath('/admin');
+    revalidatePath('/loans');
   }
 }
